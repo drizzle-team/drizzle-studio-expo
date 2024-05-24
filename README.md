@@ -1,17 +1,15 @@
-# expo-drizzle-studio-plugin
+# Drizzle Studio for Expo SQLite
+Expo dev tools plugin for you to browse your Expo SQLite data with Drizzle Studio 🎉
 
-Create SQLite DB in Expo project and manage it with Drizzle studio.
-
-# Documentation
-
-[Create SQLite DB in your Expo project](https://docs.expo.dev/versions/latest/sdk/sqlite/)
-Install expo-drizzle-studio-plugin
-
+### Get Started
+[Add Expo SQLite to your project](https://docs.expo.dev/versions/latest/sdk/sqlite/)  
+  
+Install `expo-drizzle-studio-plugin`
 ```shell
 npm i expo-drizzle-studio-plugin
 ```
 
-Call the hook and provide DB to connect SQLite DB with Drizzle Studio
+Setup Drizzle Studio plugin
 ```jsx
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import * as SQLite from "expo-sqlite";
@@ -27,13 +25,11 @@ export default function App() {
 ```
 
 Run and Expo app on physical device, simulator or emulator which supports Expo SQLite. Web doesn't support SQLite.
-
 ```shell
 npx expo start
 ```
 
-Open devtools menu from the terminal with "start" process and choose expo-drizzle-studio-plugin
-
+Open devtools menu from the terminal with "start" process and choose `expo-drizzle-studio-plugin`
 ```
 shift + m
 ```
