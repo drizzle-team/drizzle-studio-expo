@@ -175,9 +175,8 @@ export default function App() {
         const existingLink = document.querySelector('link[data-font="Roboto Mono"]');
 
 
-        if (existingLink) {
-            return;
-        }
+        if (existingLink) return;
+        
 
         const fontLink = document.createElement("link");
         fontLink.rel = "stylesheet";
