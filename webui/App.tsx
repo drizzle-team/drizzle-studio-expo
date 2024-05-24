@@ -205,9 +205,6 @@ export default function App() {
                 flexDirection: "column"
             }}
         >
-            <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-                Change theme
-            </button>
             <drizzle-studio
                 ref={studioRef}
                 css-variables={JSON.stringify(
