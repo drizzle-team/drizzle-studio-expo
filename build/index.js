@@ -1,8 +1,3 @@
-export let useDrizzleStudioPlugin;
-// process.env.NODE_ENV is defined by metro transform plugins
-// if (process.env.NODE_ENV !== "production") {
-// } else {
-//     useDrizzleStudioPlugin = () => {};
-// }
-useDrizzleStudioPlugin = require("./useDrizzleStudioPlugin").useDrizzleStudioPlugin;
+import useDrizzleStudio from "./useDrizzleStudio";
+export { useDrizzleStudio };
 //# sourceMappingURL=index.js.map

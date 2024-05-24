@@ -3,12 +3,7 @@ import {
     useDevToolsPluginClient,
     type EventSubscription
 } from "expo/devtools";
-import React, {
-    ComponentPropsWithoutRef,
-    useEffect,
-    useRef,
-    useState
-} from "react";
+import React, { ComponentPropsWithoutRef, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import ReactDOMClient from "react-dom/client";
 import { View } from "react-native";
@@ -88,75 +83,13 @@ const lightCssVariables = {
     "--sql-runner-icon-set": "default"
 };
 
-const darkCssVariables = {
-    "--page-background": "#191919",
-    "--background": "#191919",
-    "--foreground": "#BFBFBF",
-    "--popover": "#191919",
-    "--popover-foreground": "#BFBFBF",
-    "--primary": "#F5F5F5",
-    "--primary-foreground": "#191D23",
-    "--secondary": "#15222E",
-    "--secondary-foreground": "#007BFF",
-    "--muted": "#222222",
-    "--muted-foreground": "#757575",
-    "--accent": "#1C1C1C",
-    "--accent-foreground": "#BFBFBF",
-    "--destructive": "#FF467D",
-    "--destructive-foreground": "#FAFAFA",
-    "--border": "#2E2E2E",
-    "--input": "#2E2E2E",
-    "--number-color": "#7FC578",
-    "--property-name": "#E6E1DD",
-    "--cursor": "#abb2bf",
-    "--line-number": "#7D8799",
-    "--string-value": "#FC803A",
-    "--boolean-value": "#FC803A",
-    "--highlight-background": "#48484870",
-    "--editor-background": "#030711",
-    "--selection": "#3e4451",
-    "--fold-gutter-hover": "#434346",
-    "--table-vertical-lines": "1px",
-    "--editor-font": "Menlo",
-    "--table-font": "Roboto Mono",
-    "--interface-font": "Open Sans",
-    "--filters-toolbar": "#222222",
-    "--edit": "#FFD69D",
-    "--edit-foreground": "#7F4C04",
-    "--submit": "#00DB9A",
-    "--submit-foreground": "#025A40",
-    "--radius": "0.6rem",
-    "--checkbox-radius": "2px",
-    "--filter-icon-set": "default",
-    "--sort-icon-set": "default",
-    "--download-icon-set": "default",
-    "--theme-icon-set": "default",
-    "--chevron-icon-set": "default",
-    "--refresh-icon-set": "default",
-    "--table-icon-set": "default",
-    "--sidebar-icon-set": "default",
-    "--buttons-variant": "default",
-    "--table-vertical-lines-padding": "8px",
-    "--table-vertical-lines-padding-checkbox": "2px",
-    "--sql-runner-icon-set": "default",
-    "--sql-variable-color": "#E1E3E7",
-    "--sql-method-color": "#FC803A",
-    "--sql-property-color": "#E6E1DD",
-    "--sql-number-value-color": "#7FC578",
-    "--sql-string-value-color": "#E6E1DD",
-    "--sql-boolean-value-color": "#E2E4E8"
-};
-
 export default function App() {
     const client = useDevToolsPluginClient("expo-drizzle-studio-plugin");
     const studioRef = useRef<{
         reset: () => void;
     }>(null);
 
-    const [theme, setTheme] = useState<"light" | "dark">("light");
-
     useEffect(() => {
-
         if (client) {
             window.client = client;
             drizzleStudioFunc(React, ReactDOM, ReactDOMClient);
@@ -174,9 +107,9 @@ export default function App() {
     useEffect(() => {
         const existingLink = document.querySelector('link[data-font="Roboto Mono"]');
 
-
-        if (existingLink) return;
-        
+        if (existingLink) {
+            return;
+        }
 
         const fontLink = document.createElement("link");
         fontLink.rel = "stylesheet";
@@ -206,9 +139,7 @@ export default function App() {
         >
             <drizzle-studio
                 ref={studioRef}
-                css-variables={JSON.stringify(
-                    theme === "light" ? lightCssVariables : darkCssVariables
-                )}
+                css-variables={JSON.stringify(lightCssVariables)}
                 style={{
                     flexGrow: 1,
                     minHeight: 0
