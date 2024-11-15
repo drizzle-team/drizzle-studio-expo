@@ -1,6 +1,6 @@
 {
     "name": "expo-drizzle-studio-plugin",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "A new DevTools plugin created by create-dev-plugin",
     "main": "build/index.js",
     "types": "build/index.d.ts",
@@ -26,10 +26,10 @@
     ],
     "license": "MIT",
     "dependencies": {
-        "expo-sqlite": "^14.0.3"
+        "expo-sqlite": "^15.0.3"
     },
     "devDependencies": {
-        "expo": "~51.0.0",
+        "expo": "~52.0.0",
         "expo-module-scripts": "^3.1.0",
         "typescript": "^5.1.3"
     },
