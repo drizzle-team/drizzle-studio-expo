@@ -1,42 +1,71 @@
-import * as SQLite from "expo-sqlite";
-import { useDevToolsPluginClient } from "expo/devtools";
-import { useEffect } from "react";
+import * as opSQLite from "@op-engineering/op-sqlite"
+import * as SQLite from "expo-sqlite"
+import { useDevToolsPluginClient } from "expo/devtools"
+import { useEffect } from "react"
 
-export default function useDrizzleStudio(db: SQLite.SQLiteDatabase | null) {
-    const client = useDevToolsPluginClient("expo-drizzle-studio-plugin");
+type Props =
+  | { driver: "expo"; db: SQLite.SQLiteDatabase | null }
+  | { driver: "opsqlite"; db: opSQLite.DB | null }
 
-    const transferData = async (e: {
-        sql: string;
-        params: (string | number)[];
-        arrayMode: boolean;
-        id: string;
-    }) => {
-        if (!db) return;
-        try {
-            const statement = await db.prepareAsync(e.sql);
-            let executed;
-            if (e.arrayMode) {
-                executed = await statement.executeForRawResultAsync(e.params);
-            } else {
-                executed = await statement.executeAsync(e.params);
-            }
+export default function useDrizzleStudio(props: Props) {
+  const client = useDevToolsPluginClient("expo-drizzle-studio-plugin")
 
-            const data = await executed.getAllAsync();
-            client?.sendMessage(`transferData-${e.id}`, { from: "app", data });
-        } catch (error) {
-            console.error(error);
+  const transferData = async (e: {
+    sql: string
+    params: (string | number)[]
+    arrayMode: boolean
+    id: string
+  }) => {
+    if (!props.db) return
+    let data: any[] = []
+
+    try {
+      if (props.driver === "expo") {
+        const statement = await props.db.prepareAsync(e.sql)
+        let executed
+        if (e.arrayMode) {
+          executed = await statement.executeForRawResultAsync(e.params)
+        } else {
+          executed = await statement.executeAsync(e.params)
         }
-    };
 
-    useEffect(() => {
-        const subscriptions: any[] = [];
+        data = await executed.getAllAsync()
+      } else {
+        const statement = props.db.prepareStatement(e.sql)
+        statement.bind(e.params)
+        const executed = await statement.execute()
 
-        subscriptions.push(client?.addMessageListener("getData", transferData));
+        if (e.arrayMode) {
+          const rows: any[] = []
+          executed.rows!.forEach(row => {
+            const keys = Object.keys(row)
+            const rowValues: any[] = []
+            keys.forEach(key => {
+              rowValues.push(row[key])
+            })
+            rows.push(rowValues)
+          })
+          data = rows
+        } else {
+          data = executed.rows
+        }
+      }
 
-        return () => {
-            for (const subscription of subscriptions) {
-                subscription?.remove();
-            }
-        };
-    }, [client]);
+      client?.sendMessage(`transferData-${e.id}`, { from: "app", data })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    const subscriptions: any[] = []
+
+    subscriptions.push(client?.addMessageListener("getData", transferData))
+
+    return () => {
+      for (const subscription of subscriptions) {
+        subscription?.remove()
+      }
+    }
+  }, [client])
 }
