@@ -36,16 +36,7 @@ export default function useDrizzleStudio(props: Props) {
         const executed = await statement.execute()
 
         if (e.arrayMode) {
-          const rows: any[] = []
-          executed.rows!.forEach(row => {
-            const keys = Object.keys(row)
-            const rowValues: any[] = []
-            keys.forEach(key => {
-              rowValues.push(row[key])
-            })
-            rows.push(rowValues)
-          })
-          data = rows
+          data = executed.rows.map(row => Object.keys(row).map(key => row[key]))
         } else {
           data = executed.rows
         }

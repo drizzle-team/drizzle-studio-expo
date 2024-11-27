@@ -23,16 +23,7 @@ export default function useDrizzleStudio(props) {
                 statement.bind(e.params);
                 const executed = await statement.execute();
                 if (e.arrayMode) {
-                    const rows = [];
-                    executed.rows.forEach(row => {
-                        const keys = Object.keys(row);
-                        const rowValues = [];
-                        keys.forEach(key => {
-                            rowValues.push(row[key]);
-                        });
-                        rows.push(rowValues);
-                    });
-                    data = rows;
+                    data = executed.rows.map(row => Object.keys(row).map(key => row[key]));
                 }
                 else {
                     data = executed.rows;
