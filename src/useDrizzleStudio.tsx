@@ -31,13 +31,10 @@ export default function useDrizzleStudio(props: Props) {
 
         data = await executed.getAllAsync()
       } else {
-        const statement = props.db.prepareStatement(e.sql)
-        statement.bind(e.params)
-        const executed = await statement.execute()
-
         if (e.arrayMode) {
-          data = executed.rows.map(row => Object.keys(row).map(key => row[key]))
+          data = await props.db.executeRaw(e.sql, e.params)
         } else {
+          const executed = await props.db.execute(e.sql, e.params)
           data = executed.rows
         }
       }
