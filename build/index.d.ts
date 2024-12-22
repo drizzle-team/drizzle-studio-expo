@@ -1,3 +1,3 @@
-import useDrizzleStudio from "./useDrizzleStudio";
+declare const useDrizzleStudio: any;
 export { useDrizzleStudio };
 //# sourceMappingURL=index.d.ts.map
