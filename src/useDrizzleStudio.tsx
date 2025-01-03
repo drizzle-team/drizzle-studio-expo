@@ -38,5 +38,5 @@ export default function useDrizzleStudio(db: SQLite.SQLiteDatabase | null) {
                 subscription?.remove();
             }
         };
-    }, [client]);
+    }, [client, db]);
 }
