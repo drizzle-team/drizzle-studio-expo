@@ -29,6 +29,6 @@ export default function useDrizzleStudio(db) {
                 subscription?.remove();
             }
         };
-    }, [client]);
+    }, [client, db]);
 }
 //# sourceMappingURL=useDrizzleStudio.js.map
