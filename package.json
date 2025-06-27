@@ -1,6 +1,6 @@
 {
     "name": "expo-drizzle-studio-plugin",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Expo DevTools Plugin for Drizzle Studio",
     "main": "build/index.js",
     "types": "build/index.d.ts",

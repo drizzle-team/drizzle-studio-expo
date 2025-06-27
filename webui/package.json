@@ -2,7 +2,7 @@
   "name": "expo-drizzle-studio-plugin-webui",
   "description": "The frontend webui for expo-drizzle-studio-plugin",
   "private": true,
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start"
